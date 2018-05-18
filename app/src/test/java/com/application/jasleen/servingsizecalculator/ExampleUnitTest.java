@@ -1,4 +1,4 @@
-package com.application1.jasleen.servingsizecalculator;
+package com.application.jasleen.servingsizecalculator;
 
 import org.junit.Test;
 

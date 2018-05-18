@@ -1,4 +1,4 @@
-package com.application1.jasleen.servingsizecalculator;
+package com.application.jasleen.servingsizecalculator;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.application1.jasleen.servingsizecalculator", appContext.getPackageName());
+        assertEquals("com.application.jasleen.servingsizecalculator", appContext.getPackageName());
     }
 }
