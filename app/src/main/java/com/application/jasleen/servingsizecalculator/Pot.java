@@ -5,7 +5,6 @@ package com.application.jasleen.servingsizecalculator;
  */
 
 public class Pot {
-//IS THIS THE CORRECT FORMAT NEEDED?
     private String name;
     private int weightInG;
 

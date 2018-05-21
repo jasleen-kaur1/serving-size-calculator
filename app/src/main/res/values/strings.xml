@@ -5,5 +5,7 @@
     <string name="pot_name">Pot Name:</string>
     <string name="pot_weight_g">Pot Weight (g):</string>
     <string name="ok">OK</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel">Cancel</string>
+    <string name="txt_pot_name">Pot name</string>
+    <string name="txt_pot_weight_g">Pot weight (g)</string>
 </resources>
