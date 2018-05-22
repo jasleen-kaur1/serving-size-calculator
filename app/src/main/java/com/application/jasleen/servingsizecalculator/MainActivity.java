@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         startPotCollection = new PotCollection(); //create a new object, instantiate
         setupAddPotButton();
         populateListView();
+
         registerClickCallBack();
 
     }
@@ -55,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
         ListView list = findViewById(R.id.listViewPotList);
         list.setAdapter(adapter);
     }
-
     private void registerClickCallBack() {
         ListView list = findViewById(R.id.listViewPotList);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
+            //When you click on a specific item
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 TextView textView = (TextView) viewClicked;
                 String message = "You clicked # " + position
@@ -67,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, message);
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG)
                         .show();
+
+                //Launch Calculate Activity
+                //Intent intent = new Intent(MainActivity.this, CalculateActivity.class);
+                Intent newIntent = CalculateActivity.makeLaunchIntent(MainActivity.this, startPotCollection.getPot(position) );
+                startActivity(newIntent); //Use that intent to start the activity
+
+                //Kill the main activity
+                //finish();
             }
         });
     }
@@ -104,16 +113,16 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
 
                     //Get the new Pot
-                    Pot newPot = AddPotActivity.getPotFromIntent(data);
+                     Pot newPot = AddPotActivity.getPotFromIntent(data);
                    // int newPotWeight = data.getIntExtra("AddPotActivityWeight",0); CAN DELETE
 
                     //Do something with it
                     startPotCollection.addPot(newPot);
                     populateListView();
 
-                    Log.i("My Pot List Activity", "New Pot is: " + newPot.getName()+ " - " + newPot.getWeightInG() + "g");
+                    Log.i(TAG, "New Pot is: " + newPot.getName()+ " - " + newPot.getWeightInG() + "g");
                 } else {
-                    Log.i("My Pot List Activity", "Activity is cancelled");
+                    Log.i(TAG, "Activity is cancelled");
 
                 }
 
