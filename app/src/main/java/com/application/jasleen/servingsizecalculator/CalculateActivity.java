@@ -24,7 +24,6 @@ public class CalculateActivity extends AppCompatActivity {
     private int withFoodWeight;
     private int foodWeight;
     private int servingNumber;
-    private int newFoodWeight;
     private int servingWeight;
 
     @Override
@@ -35,90 +34,96 @@ public class CalculateActivity extends AppCompatActivity {
         extractDataFromIntent();
         setupBackButton();
         setupCalculateValues();
-       // setupWeightOfFood();
+        setupWeightOfFood();
+        setupServingWeight();
+
     }
-/*
-    private void setupWeightOfFood() {
-        foodWeight = withFoodWeight - myPot.getWeightInG();
 
-        TextView calculateFoodWeight = findViewById(R.id.calculateWeightOfFood);
-        calculateFoodWeight.setText("" + foodWeight);
-    }
-*/
-    private void setupCalculateValues() {
-        //Setting pot name
-        TextView calculatePotName = findViewById(R.id.calculatePotName);
-        calculatePotName.setText(myPot.getName());
-
-        //Setting pot weight
-        TextView calculatePotWeight = findViewById(R.id.calculateWeightEmpty);
-        calculatePotWeight.setText("" + myPot.getWeightInG());
-/*
-        //Weight of food
-        EditText userFoodWeight = findViewById(R.id.calculateWeightWithFood);
-        String valWithFoodWeight = userFoodWeight.getText().toString();
-        withFoodWeight = Integer.parseInt(valWithFoodWeight);
-        //setupWeightOfFood();
-
-
-*/
-
-        final EditText userFoodWeight = findViewById(R.id.calculateWeightWithFood);
-        //final TextView calculateFoodWeight = findViewById(R.id.calculateWeightOfFood);
-        userFoodWeight.addTextChangedListener(new TextWatcher(){
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String valWithFoodWeight = userFoodWeight.getText().toString();
-                withFoodWeight = Integer.parseInt(valWithFoodWeight);
-
-                foodWeight = withFoodWeight - myPot.getWeightInG();
-
-                TextView calculateFoodWeight = findViewById(R.id.calculateWeightOfFood);
-                calculateFoodWeight.setText("" + foodWeight);
-
-            }
-        });
-
+    private void setupServingWeight() {
         final EditText numberServings = findViewById(R.id.calculateNumberServings);
         numberServings.addTextChangedListener(new TextWatcher(){
 
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 String valNumberServings = numberServings.getText().toString();
                 servingNumber = Integer.parseInt(valNumberServings);
 
-                TextView WeightOfFood = findViewById(R.id.calculateWeightOfFood);
-                String valWeightOfFood = WeightOfFood.getText().toString();
-                newFoodWeight= Integer.parseInt(valWeightOfFood);
-
-                servingWeight = newFoodWeight/ servingNumber;
-
                 TextView calculateServingWeight = findViewById(R.id.calculateServingWeight);
-                calculateServingWeight.setText("" + servingWeight);
+
+                if (servingNumber ==0){
+
+                    servingWeight = 0;
+                    calculateServingWeight.setText("" + servingWeight);
+                }else {
+
+                    servingWeight = foodWeight / servingNumber;
+                    calculateServingWeight.setText("" + servingWeight);
+                }
+                Log.i(TAG, "Serving Number : "+ servingNumber + "Serving Weight: " + servingWeight);
 
             }
         });
+    }
+
+    private void setupWeightOfFood() {
+        final EditText userWeightWithFood = findViewById(R.id.calculateWeightWithFood);
+        userWeightWithFood.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //Converts EditText of Weight with food (g) to int
+                String valWithFoodWeight = userWeightWithFood.getText().toString();
+                withFoodWeight = Integer.parseInt(valWithFoodWeight);
+
+                //Calculation of Weight of food (g)
+                foodWeight = withFoodWeight - myPot.getWeightInG();
+
+                Log.i("Calculate Activity", "Weight with food (g) : " + withFoodWeight+ "  Weight of food (g) : " + foodWeight);
+
+                //Setting text in Weight of food (g)
+                TextView calculateFoodWeight = findViewById(R.id.calculateWeightOfFood);
+                calculateFoodWeight.setText("" + foodWeight);
+
+                //Checking if Number of Servings has been inputted by user
+                EditText numberOfServings = findViewById(R.id.calculateNumberServings);
+                String validServingNumber = numberOfServings.getText().toString();
+                if(!validServingNumber.isEmpty() ){
+
+                    if(servingNumber!=0) {
+                        servingWeight = foodWeight / servingNumber;
+
+                        TextView calculateServingWeight = findViewById(R.id.calculateServingWeight);
+                        calculateServingWeight.setText("" + servingWeight);
+                        Log.i("Calculate Activity", "Serving Weight: " + servingWeight + "  Weight of food (g) : " + foodWeight);
+                    }
+
+                }
+
+            }
+        });
+    }
+
+    private void setupCalculateValues() {
+        //Setting pot name
+        TextView calculatePotName = findViewById(R.id.calculatePotName);
+        calculatePotName.setText(myPot.getName());
+
+        //Setting empty pot weight
+        TextView calculatePotWeight = findViewById(R.id.calculateWeightEmpty);
+        calculatePotWeight.setText("" + myPot.getWeightInG());
+
     }
 
     private void extractDataFromIntent() {
@@ -144,7 +149,8 @@ public class CalculateActivity extends AppCompatActivity {
         });
     }
 
-    public static Intent makeLaunchIntent(Context context, Pot pot) {// encapsulating in it's second activity the ability to create itself
+    // encapsulating in it's second activity the ability to create itself
+    public static Intent makeLaunchIntent(Context context, Pot pot) {
         Intent intent = new Intent(context, CalculateActivity.class);
         //pushed the data in here
         intent.putExtra(EXTRA_POT_NAME, pot.getName());

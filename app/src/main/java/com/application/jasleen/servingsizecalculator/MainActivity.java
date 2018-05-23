@@ -116,12 +116,14 @@ public class MainActivity extends AppCompatActivity {
                      Pot newPot = AddPotActivity.getPotFromIntent(data);
                    // int newPotWeight = data.getIntExtra("AddPotActivityWeight",0); CAN DELETE
 
-                    //Do something with it
+                    //Add pot to collection and in list
                     startPotCollection.addPot(newPot);
                     populateListView();
 
                     Log.i(TAG, "New Pot is: " + newPot.getName()+ " - " + newPot.getWeightInG() + "g");
+
                 } else {
+
                     Log.i(TAG, "Activity is cancelled");
 
                 }

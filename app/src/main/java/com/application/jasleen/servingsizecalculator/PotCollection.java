@@ -44,4 +44,7 @@ public class PotCollection {
         }
 
     }
+    //private String potCondition(String condition){ //ADDED
+//
+    //}
 }
