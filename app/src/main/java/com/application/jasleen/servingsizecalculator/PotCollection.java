@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class PotCollection {
     private List<Pot> pots = new ArrayList<>(); // Pot is type of object to be stored in ArrayList
-
+    //private int iconID; //ADDED
 
     public void addPot(Pot pot) { //adds pot to the list
         pots.add(pot);
@@ -44,7 +44,7 @@ public class PotCollection {
         }
 
     }
-    private int setIconID( int iconID){ //ADDED
-        return iconID;
-    }
+    //private void setIconID( int iconID){ //ADDED
+    //    this.iconID= iconID;
+    //}
 }

@@ -23,8 +23,21 @@ public class AddPotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pot);
 
-        setupCancelButton();
         setupOkButton();
+        setupEditPotButton();
+    }
+
+    private void setupEditPotButton() {
+        Button btnEditPot = findViewById(R.id.btnEditPot);
+        btnEditPot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AddPotActivity.this, "Clicked 'OK'", Toast.LENGTH_SHORT)
+                        .show();
+                //Extract data from the UI:
+
+            }
+        });
     }
 
     private void setupOkButton() {
@@ -54,23 +67,6 @@ public class AddPotActivity extends AppCompatActivity {
         });
     }
 
-
-    private void setupCancelButton() { //SETS UP CANCEL BUTTON
-        //Wire up the button to do stuff
-        Button btnCancel = findViewById(R.id.btnCancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "Clicked 'CANCEL'");
-                Toast.makeText(AddPotActivity.this, "Clicked 'CANCEL'", Toast.LENGTH_SHORT)
-                        .show();
-                // Intent intent = new Intent();
-               // setResult(Activity.RESULT_CANCELED, intent);
-                finish(); //always want to call finish to not keep adding on to stack
-            }
-        });
-
-    }
 
     public static Intent makeIntent(Context context){ // can make itself
         return new Intent(context, AddPotActivity.class);

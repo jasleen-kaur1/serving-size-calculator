@@ -18,7 +18,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Pot List Activity";
 
     public static final int REQUEST_CODE_GETLIST = 1004;
+    public static final int REQUEST_CODE_EDIT_POT = 1024;
     private PotCollection startPotCollection; // instantiate
+    private int indexOfPot;
 
     //Array of options --> ArrayAdapter --> ListView (Array Adapter populates ListView)
 
@@ -56,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         ListView list = findViewById(R.id.listViewPotList);
         list.setAdapter(adapter);
     }
+
+    //private class ArrayAdapter extends ArrayAdapter<String>{
+
+    //}
     private void registerClickCallBack() {
         ListView list = findViewById(R.id.listViewPotList);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,6 +82,26 @@ public class MainActivity extends AppCompatActivity {
 
                 //Kill the main activity
                 //finish();
+            }
+        });
+        //Long pressing on the pot to Edit Pot (4.1)
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                indexOfPot = position;
+                TextView textView = (TextView) view;
+                String message = "You clicked # " + position
+                        + ", which is string: " + textView.getText().toString() + "to edit";
+                Log.i(TAG, message);
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG)
+                        .show();
+                //Launch Add Pot Activity to edit
+                Intent editIntent = AddPotActivity.makeIntent(MainActivity.this);
+
+                //Start activity with the intention of getting result back
+                startActivityForResult(editIntent, REQUEST_CODE_EDIT_POT); //Use that intent to start the activity
+
+                return false;
             }
         });
     }
@@ -114,20 +140,28 @@ public class MainActivity extends AppCompatActivity {
 
                     //Get the new Pot
                      Pot newPot = AddPotActivity.getPotFromIntent(data);
-                   // int newPotWeight = data.getIntExtra("AddPotActivityWeight",0); CAN DELETE
 
                     //Add pot to collection and in list
                     startPotCollection.addPot(newPot);
                     populateListView();
 
                     Log.i(TAG, "New Pot is: " + newPot.getName()+ " - " + newPot.getWeightInG() + "g");
-
+                    break;
                 } else {
 
                     Log.i(TAG, "Activity is cancelled");
 
                 }
-
+                //For Edit Pot (4.1)
+            case REQUEST_CODE_EDIT_POT:
+                if (resultCode == Activity.RESULT_OK){
+                    //Get the new Pot
+                    Pot newPot = AddPotActivity.getPotFromIntent(data);
+                    startPotCollection.changePot(newPot, indexOfPot);
+                    populateListView();
+                    Log.i(TAG, "Edited Pot at position #: " + indexOfPot+ " Now: "+ newPot.getName()+ " - " + newPot.getWeightInG() + "g");
+                    break;
+                }
         }
 
     }
