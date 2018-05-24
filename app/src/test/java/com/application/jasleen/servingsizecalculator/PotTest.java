@@ -20,7 +20,9 @@ public class PotTest {
         assertEquals("Cooker", potOne.getName());
 
     }
-    @Ignore ("Throwing not yet defined for method") //NOT NEEDED??
+    /*
+    // no need to ignore
+    //@Ignore ("Throwing not yet defined for method") //NOT NEEDED??
     @Test (expected = IllegalArgumentException.class)
     public void testCreateThingsGoWrong() {
         potOne = new Pot("", 84);
@@ -28,6 +30,7 @@ public class PotTest {
         potOne = new Pot("Saute Pan", -30000);
         potOne.getWeightInG();
     }
+*/
 
     @Test (expected = IllegalArgumentException.class)
     public void testFailSetWeightInG() {
@@ -53,6 +56,7 @@ public class PotTest {
     @Test (expected = IllegalArgumentException.class)
     public void testFailSetName () {
         potOne.setName("");
+        potOne.setName(null);
     }
 
     @Test
@@ -65,11 +69,11 @@ public class PotTest {
     }
     
 
-    /*
+
     @Test (expected = IllegalArgumentException.class)
     public void setNullName() {
         potOne.setName(null);
     }
-    */
+
 
 }

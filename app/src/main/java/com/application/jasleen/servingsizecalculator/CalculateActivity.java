@@ -26,23 +26,29 @@ public class CalculateActivity extends AppCompatActivity {
     private int servingNumber;
     private int servingWeight;
 
+    //For EditTexts and TextViews
+    private EditText numberServings;
+    private EditText userWeightWithFood;
+    private TextView calculateServingWeight;
+    private TextView calculateFoodWeight;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculate);
-        
+
         extractDataFromIntent();
         setupBackButton();
         setupCalculateValues();
-        setupWeightOfFood();
-        setupServingWeight();
+        //setupWeightOfFood();
+        //setupServingWeight();
+        numberServings = findViewById(R.id.calculateNumberServings);
+        userWeightWithFood = findViewById(R.id.calculateWeightWithFood);
+        calculateServingWeight = findViewById(R.id.calculateServingWeight);
+        calculateFoodWeight = findViewById(R.id.calculateWeightOfFood);
 
-    }
 
-    private void setupServingWeight() {
-        final EditText numberServings = findViewById(R.id.calculateNumberServings);
         numberServings.addTextChangedListener(new TextWatcher(){
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -51,28 +57,28 @@ public class CalculateActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                String valNumberServings = numberServings.getText().toString();
-                servingNumber = Integer.parseInt(valNumberServings);
 
-                TextView calculateServingWeight = findViewById(R.id.calculateServingWeight);
+                try {
+                    servingNumber = Integer.parseInt(s.toString());
+                    if (servingNumber == 0) {
+                        servingWeight = 0;
+                        calculateServingWeight.setText("" + servingWeight);
+                    } else {
+                        servingWeight = foodWeight / servingNumber;
+                        calculateServingWeight.setText("" + servingWeight);
+                    }
+                    Log.i(TAG, "Serving Number : " + servingNumber + "Serving Weight: " + servingWeight);
 
-                if (servingNumber ==0){
-
-                    servingWeight = 0;
-                    calculateServingWeight.setText("" + servingWeight);
-                }else {
-
-                    servingWeight = foodWeight / servingNumber;
-                    calculateServingWeight.setText("" + servingWeight);
                 }
-                Log.i(TAG, "Serving Number : "+ servingNumber + "Serving Weight: " + servingWeight);
+                catch(NumberFormatException e){
+                    //When nothing is entered in number of servings
+                    calculateServingWeight.setText("");
+                    Log.i(TAG, "Serving Number (Catch) : " + servingNumber + "Serving Weight: " + servingWeight);
 
+                }
             }
         });
-    }
 
-    private void setupWeightOfFood() {
-        final EditText userWeightWithFood = findViewById(R.id.calculateWeightWithFood);
         userWeightWithFood.addTextChangedListener(new TextWatcher(){
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -80,39 +86,38 @@ public class CalculateActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-                //Converts EditText of Weight with food (g) to int
-                String valWithFoodWeight = userWeightWithFood.getText().toString();
-                withFoodWeight = Integer.parseInt(valWithFoodWeight);
+                try {
+                    withFoodWeight = Integer.parseInt(s.toString());
 
-                //Calculation of Weight of food (g)
-                foodWeight = withFoodWeight - myPot.getWeightInG();
+                    //Calculation of Weight of food (g)
+                    foodWeight = withFoodWeight - myPot.getWeightInG();
+                    calculateFoodWeight.setText("" + foodWeight);
+                    Log.i("Calculate Activity", "Weight with food (g) : " + withFoodWeight + "  Weight of food (g) : " + foodWeight);
 
-                Log.i("Calculate Activity", "Weight with food (g) : " + withFoodWeight+ "  Weight of food (g) : " + foodWeight);
+                    //Checking if Number of Servings has been inputted by user
+                    if (numberServings.length() > 0) {
 
-                //Setting text in Weight of food (g)
-                TextView calculateFoodWeight = findViewById(R.id.calculateWeightOfFood);
-                calculateFoodWeight.setText("" + foodWeight);
+                        if (servingNumber != 0) {
+                            servingWeight = foodWeight / servingNumber;
 
-                //Checking if Number of Servings has been inputted by user
-                EditText numberOfServings = findViewById(R.id.calculateNumberServings);
-                String validServingNumber = numberOfServings.getText().toString();
-                if(!validServingNumber.isEmpty() ){
-
-                    if(servingNumber!=0) {
-                        servingWeight = foodWeight / servingNumber;
-
-                        TextView calculateServingWeight = findViewById(R.id.calculateServingWeight);
-                        calculateServingWeight.setText("" + servingWeight);
-                        Log.i("Calculate Activity", "Serving Weight: " + servingWeight + "  Weight of food (g) : " + foodWeight);
+                            calculateServingWeight.setText("" + servingWeight);
+                            Log.i(TAG, "Serving Weight: " + servingWeight + "  Weight of food (g) : " + foodWeight);
+                        }
                     }
+                }
+                catch(NumberFormatException e){
+                    //When nothing is entered in Weight with food (g)
+                    calculateFoodWeight.setText("");
+                    calculateServingWeight.setText("");
+                    numberServings.getText().clear();
+                    Log.i(TAG, "Serving Weight (Catch): " + servingWeight + "  Weight of food (g) : " + foodWeight);
 
                 }
-
             }
         });
+
     }
 
     private void setupCalculateValues() {
@@ -140,7 +145,7 @@ public class CalculateActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "Clicked 'CANCEL'");
+                Log.i(TAG, "Clicked 'BACK'");
                 Toast.makeText(CalculateActivity.this, "Clicked 'BACK'", Toast.LENGTH_SHORT)
                         .show();
                 finish(); //goes back to the Pot list Activity
@@ -157,4 +162,6 @@ public class CalculateActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_POT_WEIGHT, pot.getWeightInG());
         return intent;
     }
+
+
 }

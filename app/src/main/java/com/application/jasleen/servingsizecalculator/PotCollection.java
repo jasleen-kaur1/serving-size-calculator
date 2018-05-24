@@ -44,7 +44,7 @@ public class PotCollection {
         }
 
     }
-    //private String potCondition(String condition){ //ADDED
-//
-    //}
+    private int setIconID( int iconID){ //ADDED
+        return iconID;
+    }
 }
