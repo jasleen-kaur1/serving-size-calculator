@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 //Start activity with the intention of getting result back
                 startActivityForResult(editIntent, REQUEST_CODE_EDIT_POT); //Use that intent to start the activity
 
-                return false;
+                return true; //changed?!?!?!
             }
         });
     }
@@ -145,12 +145,12 @@ public class MainActivity extends AppCompatActivity {
                     startPotCollection.addPot(newPot);
                     populateListView();
 
-                    Log.i(TAG, "New Pot is: " + newPot.getName()+ " - " + newPot.getWeightInG() + "g");
+                    Log.i(TAG, "Result new Pot is: " + newPot.getName()+ " - " + newPot.getWeightInG() + "g");
                     break;
                 } else {
 
                     Log.i(TAG, "Activity is cancelled");
-
+                    break;
                 }
                 //For Edit Pot (4.1)
             case REQUEST_CODE_EDIT_POT:
@@ -159,7 +159,11 @@ public class MainActivity extends AppCompatActivity {
                     Pot newPot = AddPotActivity.getPotFromIntent(data);
                     startPotCollection.changePot(newPot, indexOfPot);
                     populateListView();
-                    Log.i(TAG, "Edited Pot at position #: " + indexOfPot+ " Now: "+ newPot.getName()+ " - " + newPot.getWeightInG() + "g");
+                    Log.i(TAG, " Result edited Pot at position #: " + indexOfPot+ " Now: "+ newPot.getName()+ " - " + newPot.getWeightInG() + "g");
+                    break;
+                } else {
+
+                    Log.i(TAG, "Activity is cancelled");
                     break;
                 }
         }

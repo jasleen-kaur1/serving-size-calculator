@@ -67,13 +67,13 @@ public class CalculateActivity extends AppCompatActivity {
                         servingWeight = foodWeight / servingNumber;
                         calculateServingWeight.setText("" + servingWeight);
                     }
-                    Log.i(TAG, "Serving Number : " + servingNumber + "Serving Weight: " + servingWeight);
+                    Log.i(TAG, "Serving Number : " + servingNumber + "  Serving Weight: " + servingWeight);
 
                 }
                 catch(NumberFormatException e){
                     //When nothing is entered in number of servings
                     calculateServingWeight.setText("");
-                    Log.i(TAG, "Serving Number (Catch) : " + servingNumber + "Serving Weight: " + servingWeight);
+                    Log.i(TAG, "Serving Number (Catch) : " + servingNumber + "  Serving Weight: " + servingWeight);
 
                 }
             }

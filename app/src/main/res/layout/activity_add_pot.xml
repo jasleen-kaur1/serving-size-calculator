@@ -132,7 +132,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:hint="@string/txt_pot_weight_g"
-                android:inputType="number"
+                android:inputType="numberSigned"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.432"

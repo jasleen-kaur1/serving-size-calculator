@@ -24,47 +24,76 @@ public class AddPotActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_pot);
 
         setupOkButton();
-        setupEditPotButton();
+        setupCancelButton();
     }
 
-    private void setupEditPotButton() {
-        Button btnEditPot = findViewById(R.id.btnEditPot);
-        btnEditPot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(AddPotActivity.this, "Clicked 'OK'", Toast.LENGTH_SHORT)
-                        .show();
-                //Extract data from the UI:
-
-            }
-        });
-    }
 
     private void setupOkButton() {
         Button btnOk = findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "Clicked 'OK'");
-                Toast.makeText(AddPotActivity.this, "Clicked 'OK'", Toast.LENGTH_SHORT)
-                        .show();
                 //Extract data from the UI:
                 EditText editPotName = findViewById(R.id.txtPotName);
                 newPotName = editPotName.getText().toString(); //What the user has typed in
 
                 EditText editPotWeight = findViewById(R.id.txtPotWeight);
                 String valWeight = editPotWeight.getText().toString();
-                newPotWeight = Integer.parseInt(valWeight);
 
                 //Pass data back
                 Intent intent = new Intent();
-                intent.putExtra(RESULT_KEY_POT_NAME, newPotName);
-                intent.putExtra(RESULT_KEY_POT_WEIGHT, newPotWeight);
-                setResult(Activity.RESULT_OK, intent);
 
+                //Added for Error Checking Input (4.3)
+                //Validate if user has correctly inputted pot name
+                if (newPotName.length() <= 0) {
+                    Toast.makeText(AddPotActivity.this, "Please input a Pot Name", Toast.LENGTH_LONG)
+                            .show();
+                } else {
+                    intent.putExtra(RESULT_KEY_POT_NAME, newPotName);
+                }
+                //Validate that the user has written something for Pot Weight
+                if (valWeight.isEmpty()) {
+                    Toast.makeText(AddPotActivity.this, "Please input a Pot Weight (g)", Toast.LENGTH_LONG)
+                            .show();
+                }else {
+                    //Convert pot weight string to an integer
+                    newPotWeight = Integer.parseInt(editPotWeight.getText().toString());
+
+                    //Validating user's pot weight input
+                    if(newPotWeight<0){
+                        Toast.makeText(AddPotActivity.this, "Pot Weight (g) must be greater than or equal to zero", Toast.LENGTH_LONG)
+                                .show();
+                    }else {
+                        intent.putExtra(RESULT_KEY_POT_WEIGHT, newPotWeight);
+                    }
+                    //If user has correctly inputted both pot weight and pot name then only pass data back and finish
+                    if(newPotName.length()>0  && newPotWeight>=0) {
+                        setResult(Activity.RESULT_OK, intent);
+                        Log.i(TAG, "Clicked 'OK'");
+                        Toast.makeText(AddPotActivity.this, "Clicked 'OK'", Toast.LENGTH_SHORT)
+                                .show();
+                        finish(); //always want to call finish to not keep adding on to stack
+                    }
+                }
+
+            }
+        });
+    }
+    private void setupCancelButton() { //SETS UP CANCEL BUTTON
+        //Wire up the button to do stuff
+        Button btnCancel = findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Clicked 'CANCEL'");
+                Toast.makeText(AddPotActivity.this, "Clicked 'CANCEL'", Toast.LENGTH_SHORT)
+                        .show();
+                // Intent intent = new Intent();
+                // setResult(Activity.RESULT_CANCELED, intent);
                 finish(); //always want to call finish to not keep adding on to stack
             }
         });
+
     }
 
 
