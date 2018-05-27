@@ -1,7 +1,6 @@
 package com.application.jasleen.servingsizecalculator;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -31,32 +30,25 @@ public class PotTest {
         potOne.getWeightInG();
     }
 */
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testFailSetWeightInG() {
-        potOne.setWeightInG(-8);
+/*
+    @Test //Is this needed?
+    public void testCreateThingsGoWrong() {
+        try {
+            potOne.setWeightInG(-500);
+            fail();
+        }catch(IllegalArgumentException e){
+            //do nothing; should have triggered exception
+            assertTrue(true);
+        }
     }
-
+*/
     @Test
-    public void testZeroSetWeightInG() {
-        potOne.setWeightInG(0);
-    }
-
-    @Test
-    public void testCorrectSetWeightInG() {
-        potOne.setWeightInG(1);
-        assertEquals(1, potOne.getWeightInG());
-        potOne.setWeightInG(350);
-        assertEquals(350, potOne.getWeightInG());
-        potOne.setWeightInG(2147483647);
-        assertEquals(2147483647, potOne.getWeightInG());
-
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testFailSetName () {
-        potOne.setName("");
-        potOne.setName(null);
+    public void testCreateMoreObjects() {
+        Pot potTwo = new Pot("Fry Pan", 1000);
+        potOne.setName("Huge Pot");
+        assertEquals("Huge Pot", potOne.getName());
+        potTwo.setName("Gas Cooker");
+        assertEquals("Gas Cooker", potTwo.getName());
     }
 
     @Test
@@ -67,13 +59,34 @@ public class PotTest {
         assertEquals("S", potOne.getName());
 
     }
-    
 
-
-    @Test (expected = IllegalArgumentException.class)
-    public void setNullName() {
+    @Test (expected = IllegalArgumentException.class) //not like one shown?
+    public void testFailSetName () {
+        potOne.setName("");
         potOne.setName(null);
     }
 
+    @Test
+    public void testCorrectSetWeightInG() {
+        potOne.setWeightInG(1);
+        assertEquals(1, potOne.getWeightInG());
+        potOne.setWeightInG(350);
+        assertEquals(350, potOne.getWeightInG());
+        potOne.setWeightInG(Integer.MAX_VALUE);
+        assertEquals(Integer.MAX_VALUE, potOne.getWeightInG());
+
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testFailSetWeightInG() {
+        potOne.setWeightInG(-1);
+        potOne.setWeightInG(-100);
+        potOne.setWeightInG(Integer.MIN_VALUE);
+    }
+
+    @Test
+    public void testZeroSetWeightInG() {
+        potOne.setWeightInG(0);
+    }
 
 }

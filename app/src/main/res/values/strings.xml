@@ -18,4 +18,5 @@
     <string name="weight_with_food_g">Weight with food (g)</string>
     <string name="hint_weight_with_food_g">Weight with food (g)</string>
     <string name="pot_icons">Pot Icons</string>
+    <string name="delete_pot">Delete Pot</string>
 </resources>

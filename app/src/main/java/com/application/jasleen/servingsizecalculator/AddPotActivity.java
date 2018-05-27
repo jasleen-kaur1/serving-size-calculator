@@ -15,6 +15,7 @@ public class AddPotActivity extends AppCompatActivity {
     private static final String TAG = "Add Pot Activity";
     public static final String RESULT_KEY_POT_NAME = "com.application.jasleen.servingsizecalculator.AddPotActivity - Return Pot Name";
     public static final String RESULT_KEY_POT_WEIGHT = "com.application.jasleen.servingsizecalculator.AddPotActivity - Return Pot Weight";
+    public static final int RESULT_CODE_DELETE_POT = 1054;
     private String newPotName;
     private int newPotWeight;
 
@@ -25,6 +26,21 @@ public class AddPotActivity extends AppCompatActivity {
 
         setupOkButton();
         setupCancelButton();
+        setupDeleteButton();
+    }
+
+    private void setupDeleteButton() {
+        Button btnDeletePot = findViewById(R.id.btnDeletePot);
+        btnDeletePot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CODE_DELETE_POT);
+                Log.i(TAG, "Clicked 'DELETE POT'");
+                Toast.makeText(AddPotActivity.this, "Clicked 'DELETE POT'", Toast.LENGTH_SHORT)
+                        .show();
+                finish();
+            }
+        });
     }
 
 
@@ -89,7 +105,6 @@ public class AddPotActivity extends AppCompatActivity {
                 Toast.makeText(AddPotActivity.this, "Clicked 'CANCEL'", Toast.LENGTH_SHORT)
                         .show();
                 // Intent intent = new Intent();
-                // setResult(Activity.RESULT_CANCELED, intent);
                 finish(); //always want to call finish to not keep adding on to stack
             }
         });

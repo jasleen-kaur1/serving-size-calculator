@@ -44,6 +44,17 @@ public class PotCollection {
         }
 
     }
+
+    public void deletePot(int indexOfPotEditing ){
+        pots.remove(indexOfPotEditing);
+    }
+/*
+    //Deleting all pot
+    public void removeAll(){
+        pots.clear();
+    }
+*/
+
     //private void setIconID( int iconID){ //ADDED
     //    this.iconID= iconID;
     //}

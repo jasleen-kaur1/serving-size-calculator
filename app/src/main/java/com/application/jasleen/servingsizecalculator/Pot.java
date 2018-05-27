@@ -34,14 +34,11 @@ public class Pot {
     }
 
     // Set the name. Throws IllegalArgumentException if name is an empty string (length 0),
-    // or if name is a null-reference. //ASKKKKKKKK
-    public void setName(String name) { //???
-        if (name == null || name.length()==0){ //ASKK // put name null first
+    // or if name is a null-reference.
+    public void setName(String name) {
+        if (name == null || name.length()==0){
             throw new IllegalArgumentException("Pot has no name");
         }
-//       if (name == null){
-//           throw new NullPointerException("Name is a null reference ");
-//        }
         this.name = name;
     }
 
