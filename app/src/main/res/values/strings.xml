@@ -19,4 +19,9 @@
     <string name="hint_weight_with_food_g">Weight with food (g)</string>
     <string name="pot_icons">Pot Icons</string>
     <string name="delete_pot">Delete Pot</string>
+    <string name="save_pots">Save Pots</string>
+    <string name="action_bar_add_pot">Add Pot</string>
+    <string name="act_Bar_ok">OK</string>
+    <string name="act_Bar_Cancel">CANCEL</string>
+    <string name="act_Bar_Back">BACK</string>
 </resources>

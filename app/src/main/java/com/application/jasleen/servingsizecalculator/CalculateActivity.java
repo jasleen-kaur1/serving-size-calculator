@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +40,7 @@ public class CalculateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calculate);
 
         extractDataFromIntent();
-        setupBackButton();
+        //setupBackButton();
         setupCalculateValues();
         //setupWeightOfFood();
         //setupServingWeight();
@@ -120,6 +122,25 @@ public class CalculateActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_calculate, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.actBarBack:
+                Log.i(TAG, "Clicked 'BACK'");
+                Toast.makeText(CalculateActivity.this, "Clicked 'BACK'", Toast.LENGTH_SHORT)
+                        .show();
+                finish(); //goes back to the Pot list Activity
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setupCalculateValues() {
         //Setting pot name
         TextView calculatePotName = findViewById(R.id.calculatePotName);
@@ -139,20 +160,20 @@ public class CalculateActivity extends AppCompatActivity {
         myPot = new Pot(potName, potWeight); // put it into new pot
     }
 
-    private void setupBackButton() {
-        //Wire up the button to do stuff
-        Button btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "Clicked 'BACK'");
-                Toast.makeText(CalculateActivity.this, "Clicked 'BACK'", Toast.LENGTH_SHORT)
-                        .show();
-                finish(); //goes back to the Pot list Activity
-
-            }
-        });
-    }
+//    private void setupBackButton() {
+//        //Wire up the button to do stuff
+//        Button btnBack = findViewById(R.id.btnBack);
+//        btnBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i(TAG, "Clicked 'BACK'");
+//                Toast.makeText(CalculateActivity.this, "Clicked 'BACK'", Toast.LENGTH_SHORT)
+//                        .show();
+//                finish(); //goes back to the Pot list Activity
+//
+//            }
+//        });
+//    }
 
     // encapsulating in it's second activity the ability to create itself
     public static Intent makeLaunchIntent(Context context, Pot pot) {

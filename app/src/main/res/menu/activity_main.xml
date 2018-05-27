@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/actBarAddPot"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:title="@string/action_bar_add_pot"
+        app:showAsAction="always" />
+</menu>
