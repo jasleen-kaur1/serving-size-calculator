@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private PotCollection startPotCollection; // instantiate
     private int indexOfPot;
     String[] myPotList;
-    //List<String> stringPotList;
+
     //Array of options --> ArrayAdapter --> ListView (Array Adapter populates ListView)
     //List view: {views: potlist_items.xml}
 
@@ -37,39 +37,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //loadListOfPots(getApplicationContext());//FOR saving
-
         //create a new object, instantiate
         startPotCollection = new PotCollection();
         populateListView();
         //setupAddPotButton();
         registerClickCallBack();
-/*
-        //for saving 4.4
-        Button btnSavePots = findViewById(R.id.btnSaveData);
-        btnSavePots.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getListInSharedPreferences();
-            }
-        });
-        */
     }
-    /*
-//FOR SAVING
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadListOfPots();
-        populateListView();
-    }
-*/
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
-
+    //Action Bar button for Add Pot, this is the same as Add Pot Button (4.5)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -89,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Items to be displayed
+    //Items to be displayed in List View
     private void populateListView() {
         //List of pots get stored in myPotList
         myPotList = startPotCollection.getPotDescriptions();
@@ -101,45 +81,7 @@ public class MainActivity extends AppCompatActivity {
         ListView list = findViewById(R.id.listViewPotList);
         list.setAdapter(adapter);
     }
-/*
-    private void getListInSharedPreferences(){
-        /*
-        SharedPreferences sharedPrefs = getSharedPreferences("Pot Values", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit(); // to edit the file we just created
-        Gson gson = new Gson();
-        String json = gson.toJson(myPotList);
-        editor.putString("pot list", json);
-        editor.apply(); //writes all the key values to the sharedPreferences
 
-        //Type type = new TypeToken<PotCollection>{}.getType();
-        SharedPreferences sharedPrefs = getSharedPreferences("Pot_Data_Values", Activity.MODE_PRIVATE); //only my application can access it
-        //SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this); //creates XML file stored inside your phone
-        SharedPreferences.Editor editor = sharedPrefs.edit(); // to edit the file we just created
-        editor.putInt("Pot_Collection_Size", startPotCollection.countPots());
-        //key value pairs go here
-        for (int i= 0; i<startPotCollection.countPots(); i++) {
-            //editor.remove("collection" +i);
-            editor.putString("collection" +i, myPotList[i]);
-            Log.i(TAG, "HIIII"+myPotList[i]);
-        }
-        editor.apply(); //writes all the key values to the sharedPreferences
-
-    }
-
-    private void loadListOfPots(){
-        //read from shared preferences to get the data
-        //and populate the list adapter
-
-        SharedPreferences sharedPrefs = getSharedPreferences("Pot_Data_Values", MODE_PRIVATE); //only my application can access it
-        //SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context); //creates XML file stored inside your phone
-        int sizeNew = sharedPrefs.getInt("Pot_Collection_Size", 0);
-        myPotList = new String[sizeNew];
-        for (int i = 0 ; i < sizeNew ; i++){
-            myPotList[i]= sharedPrefs.getString("collection"+i, "");
-        }
-
-    }
-    */
     private void registerClickCallBack() {
         //For Calculate Activity
         ListView list = findViewById(R.id.listViewPotList);
@@ -188,19 +130,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) { //come back for cancelling
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_CODE_GETLIST:
                 if (resultCode == Activity.RESULT_OK) {
-
                     //Get the new Pot
                      Pot newPot = AddPotActivity.getPotFromIntent(data);
 
                     //Add pot to collection and in list
                     startPotCollection.addPot(newPot);
                     populateListView();
-                    //saveListInSharedPreferences(); //added FOR SHARED PREFERENCES
 
                     Log.i(TAG, "Result new Pot is: " + newPot.getName()+ " - " + newPot.getWeightInG() + "g");
                     break;
@@ -218,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                     populateListView();
                     Log.i(TAG, " Result edited Pot at position #: " + indexOfPot + " Now: " + newPot.getName() + " - " + newPot.getWeightInG() + "g");
                     break;
-                    //For Deleting Pot
+                    //For Deleting Pot (4.2)
                }if(resultCode == 1054) {
 
                     startPotCollection.deletePot(indexOfPot);
@@ -229,29 +169,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
         }
-        //getListInSharedPreferences();
-
     }
 }
-
-/*
-    SharedPreferences sharedPrefs2 = PreferenceManager.getDefaultSharedPreferences(context);
-    startPotCollection.removeAll();
-    int sizeNew = sharedPrefs2.getInt("Pot Collection Size", 0);
-
-    for (int j = 0; j<sizeNew ; j++){
-        stringPotList.add(sharedPrefs2.getString("calculations" + j, null));
-    }
-
-    if(myPotList == null){
-        startPotCollection = new PotCollection();
-    }
-
-        SharedPreferences sharedPrefs = getSharedPreferences("Pot Values", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String gson = sharedPrefs.getString("Pot List",null);
-        Type type = new TypeToken<PotCollection>{}.getType();
-*/
 
 
 //    private void setupAddPotButton() {

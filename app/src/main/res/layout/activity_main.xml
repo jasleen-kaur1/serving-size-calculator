@@ -69,14 +69,14 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Delete Pot - Long press pot for delete button"
-        android:textSize="10sp"
+        android:text="@string/delete_pot_long_press_pot_for_delete_button"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.877" />
+        app:layout_constraintVertical_bias="0.883" />
 
     <Button
         android:id="@+id/btnSaveData"
@@ -106,14 +106,14 @@
         android:layout_marginRight="196dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Error Checking Input"
-        android:textSize="10sp"
+        android:text="@string/error_checking_input"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.904" />
+        app:layout_constraintVertical_bias="0.916" />
 
     <TextView
         android:id="@+id/txtEditPot"
@@ -125,8 +125,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Edit Pot- Long Press on Pot"
-        android:textSize="10sp"
+        android:text="@string/edit_pot_long_press_on_pot"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -144,32 +144,13 @@
         android:layout_marginRight="132dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Action Bar Buttons"
-        android:textSize="10sp"
+        android:text="@string/action_bar_buttons"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.927" />
-
-    <TextView
-        android:id="@+id/txtSaveData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="124dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="124dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Save Data- Press Save Pots to save"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.954" />
+        app:layout_constraintVertical_bias="0.949" />
 
 </android.support.constraint.ConstraintLayout>

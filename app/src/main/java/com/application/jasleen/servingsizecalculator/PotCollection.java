@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class PotCollection {
     private List<Pot> pots = new ArrayList<>(); // Pot is type of object to be stored in ArrayList
-    private int iconID; //ADDED
 
     public void addPot(Pot pot) { //adds pot to the list
         pots.add(pot);
@@ -23,7 +22,8 @@ public class PotCollection {
     public int countPots() { //count the total number of pots there are
         return pots.size();
     }
-    public Pot getPot(int index) { //
+
+    public Pot getPot(int index) {
         validateIndexWithException(index);
         return pots.get(index);
     }
@@ -45,17 +45,9 @@ public class PotCollection {
 
     }
 
+    //added for Optional Feature 4.3 to Delete Pot
     public void deletePot(int indexOfPotEditing ){
         pots.remove(indexOfPotEditing);
     }
-/*
-    //Deleting all pot
-    public void removeAll(){
-        pots.clear();
-    }
-*/
 
-    private void setIconID( int iconID){ //ADDED
-        this.iconID= iconID;
-    }
 }

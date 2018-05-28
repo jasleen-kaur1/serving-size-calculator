@@ -27,7 +27,6 @@ public class Pot {
         }
         this.weightInG = weightInG;
     }
-
     // Return the name.
     public String getName() {
         return name;

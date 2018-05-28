@@ -30,7 +30,6 @@ public class CalculateActivity extends AppCompatActivity {
 
     //For EditTexts and TextViews
     private EditText numberServings;
-    private EditText userWeightWithFood;
     private TextView calculateServingWeight;
     private TextView calculateFoodWeight;
 
@@ -42,10 +41,10 @@ public class CalculateActivity extends AppCompatActivity {
         extractDataFromIntent();
         //setupBackButton();
         setupCalculateValues();
-        //setupWeightOfFood();
-        //setupServingWeight();
+
+        //EditTexts and TextViews
         numberServings = findViewById(R.id.calculateNumberServings);
-        userWeightWithFood = findViewById(R.id.calculateWeightWithFood);
+        EditText userWeightWithFood = findViewById(R.id.calculateWeightWithFood);
         calculateServingWeight = findViewById(R.id.calculateServingWeight);
         calculateFoodWeight = findViewById(R.id.calculateWeightOfFood);
 
@@ -63,10 +62,10 @@ public class CalculateActivity extends AppCompatActivity {
                         servingNumber = Integer.parseInt(s.toString());
                         if (servingNumber == 0) {
                             servingWeight = 0;
-                            calculateServingWeight.setText("" + servingWeight);
+                            calculateServingWeight.setText(String.valueOf(servingWeight));
                         }else{
                             servingWeight = foodWeight / servingNumber;
-                            calculateServingWeight.setText("" + servingWeight);
+                            calculateServingWeight.setText(String.valueOf(servingWeight));
                         }
                         Log.i(TAG, "Serving Number : " + servingNumber + "  Serving Weight: " + servingWeight);
 
@@ -94,7 +93,7 @@ public class CalculateActivity extends AppCompatActivity {
                     //Calculation of Weight of food (g)
                     if(withFoodWeight>=myPot.getWeightInG()) {
                         foodWeight = withFoodWeight - myPot.getWeightInG();
-                        calculateFoodWeight.setText("" + foodWeight);
+                        calculateFoodWeight.setText(String.valueOf(foodWeight));
                         Log.i("Calculate Activity", "Weight with food (g) : " + withFoodWeight + "  Weight of food (g) : " + foodWeight);
                     }
                     else{
@@ -108,9 +107,10 @@ public class CalculateActivity extends AppCompatActivity {
 
                         if (servingNumber != 0) {
                             servingWeight = foodWeight / servingNumber;
-                            calculateServingWeight.setText("" + servingWeight);
+                            calculateServingWeight.setText(String.valueOf(servingWeight));
                         }else{
-                            calculateServingWeight.setText("" + 0);
+                            servingWeight=0;
+                            calculateServingWeight.setText(String.valueOf(servingWeight));
                             Log.i(TAG, "Serving Weight: " + servingWeight + "  Weight of food (g) : " + foodWeight);
                         }
                     }
@@ -132,7 +132,7 @@ public class CalculateActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.activity_calculate, menu);
         return true;
     }
-// Back button to go to Pot List Activity (Main Activity) using Action Bar Buttons
+    // Back button to go to Pot List Activity (Main Activity) using Action Bar Buttons
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -154,7 +154,7 @@ public class CalculateActivity extends AppCompatActivity {
 
         //Setting empty pot weight
         TextView calculatePotWeight = findViewById(R.id.calculateWeightEmpty);
-        calculatePotWeight.setText("" + myPot.getWeightInG());
+        calculatePotWeight.setText(String.valueOf(myPot.getWeightInG()));
 
     }
 
@@ -165,6 +165,19 @@ public class CalculateActivity extends AppCompatActivity {
         int potWeight = intent.getIntExtra(EXTRA_POT_WEIGHT, 0);
         myPot = new Pot(potName, potWeight); // put it into new pot
     }
+
+
+    // encapsulating in it's second activity the ability to create itself
+    public static Intent makeLaunchIntent(Context context, Pot pot) {
+        Intent intent = new Intent(context, CalculateActivity.class);
+        //pushed the data in here
+        intent.putExtra(EXTRA_POT_NAME, pot.getName());
+        intent.putExtra(EXTRA_POT_WEIGHT, pot.getWeightInG());
+        return intent;
+    }
+
+
+}
 
 //    private void setupBackButton() {
 //        //Wire up the button to do stuff
@@ -180,15 +193,3 @@ public class CalculateActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-
-    // encapsulating in it's second activity the ability to create itself
-    public static Intent makeLaunchIntent(Context context, Pot pot) {
-        Intent intent = new Intent(context, CalculateActivity.class);
-        //pushed the data in here
-        intent.putExtra(EXTRA_POT_NAME, pot.getName());
-        intent.putExtra(EXTRA_POT_WEIGHT, pot.getWeightInG());
-        return intent;
-    }
-
-
-}
