@@ -4,6 +4,7 @@
 
     <item
         android:id="@+id/actBarBack"
+        android:icon="@drawable/back3_button"
         android:title="@string/act_Bar_Back"
         app:showAsAction="always" />
 </menu>

@@ -6,6 +6,7 @@
         android:id="@+id/actBarAddPot"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:icon="@drawable/add_pot"
         android:title="@string/action_bar_add_pot"
         app:showAsAction="always" />
 </menu>

@@ -5,10 +5,12 @@
 
     <item
         android:id="@+id/actBarOk"
+        android:icon="@drawable/ok_button"
         android:title="@string/act_Bar_ok"
         app:showAsAction="always" />
     <item
         android:id="@+id/actBarCancel"
+        android:icon="@drawable/cancel_button"
         android:title="@string/act_Bar_Cancel"
         app:showAsAction="always" />
 </menu>

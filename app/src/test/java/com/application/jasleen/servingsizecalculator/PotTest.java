@@ -19,37 +19,6 @@ public class PotTest {
         assertEquals("Cooker", potOne.getName());
 
     }
-    /*
-    // no need to ignore
-    //@Ignore ("Throwing not yet defined for method") //NOT NEEDED??
-    @Test (expected = IllegalArgumentException.class)
-    public void testCreateThingsGoWrong() {
-        potOne = new Pot("", 84);
-        potOne.getName();
-        potOne = new Pot("Saute Pan", -30000);
-        potOne.getWeightInG();
-    }
-*/
-/*
-    @Test //Is this needed?
-    public void testCreateThingsGoWrong() {
-        try {
-            potOne.setWeightInG(-500);
-            fail();
-        }catch(IllegalArgumentException e){
-            //do nothing; should have triggered exception
-            assertTrue(true);
-        }
-    }
-*/
-    @Test
-    public void testCreateMoreObjects() {
-        Pot potTwo = new Pot("Fry Pan", 1000);
-        potOne.setName("Huge Pot");
-        assertEquals("Huge Pot", potOne.getName());
-        potTwo.setName("Gas Cooker");
-        assertEquals("Gas Cooker", potTwo.getName());
-    }
 
     @Test
     public void testCorrectSetName() {
@@ -60,14 +29,19 @@ public class PotTest {
 
     }
 
-    @Test (expected = IllegalArgumentException.class) //not like one shown?
+    @Test (expected = IllegalArgumentException.class)
     public void testFailSetName () {
         potOne.setName("");
+        //assertEquals("Cooker", potOne.getName());
+
         potOne.setName(null);
+        //assertEquals("Cooker", potOne.getName());
     }
 
     @Test
     public void testCorrectSetWeightInG() {
+        potOne.setWeightInG(0);
+        assertEquals(0, potOne.getWeightInG());
         potOne.setWeightInG(1);
         assertEquals(1, potOne.getWeightInG());
         potOne.setWeightInG(350);
@@ -85,8 +59,16 @@ public class PotTest {
     }
 
     @Test
-    public void testZeroSetWeightInG() {
-        potOne.setWeightInG(0);
+    public void testCreateMoreObjects() {
+        Pot potTwo = new Pot("Fry Pan", 1000);
+        potOne.setName("Huge Pot");
+        potOne.setWeightInG(600);
+        assertEquals("Huge Pot", potOne.getName());
+        assertEquals(600, potOne.getWeightInG());
+        potTwo.setName("Gas Cooker");
+        potTwo.setWeightInG(200);
+        assertEquals("Gas Cooker", potTwo.getName());
+        assertEquals(200, potTwo.getWeightInG());
     }
 
 }

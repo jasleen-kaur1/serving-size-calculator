@@ -23,7 +23,7 @@ public class Pot {
     // Set the weight. Throws IllegalArgumentException if weight is less than 0.
     public void setWeightInG(int weightInG) {
         if (weightInG < 0){
-            throw new IllegalArgumentException("Weight of pot must be >= 0"); // correctly used?
+            throw new IllegalArgumentException("Weight of pot must be >= 0");
         }
         this.weightInG = weightInG;
     }
@@ -37,7 +37,7 @@ public class Pot {
     // or if name is a null-reference.
     public void setName(String name) {
         if (name == null || name.length()==0){
-            throw new IllegalArgumentException("Pot has no name");
+            throw new IllegalArgumentException("Pot must have a name of at least 1 character");
         }
         this.name = name;
     }
