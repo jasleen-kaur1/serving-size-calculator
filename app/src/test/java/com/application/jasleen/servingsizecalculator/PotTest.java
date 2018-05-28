@@ -33,7 +33,6 @@ public class PotTest {
     public void testFailSetName () {
         potOne.setName("");
         //assertEquals("Cooker", potOne.getName());
-
         potOne.setName(null);
         //assertEquals("Cooker", potOne.getName());
     }

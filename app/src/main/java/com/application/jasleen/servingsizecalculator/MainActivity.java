@@ -1,10 +1,7 @@
 package com.application.jasleen.servingsizecalculator;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         //create a new object, instantiate
         startPotCollection = new PotCollection();
         populateListView();
-        //setupAddPotButton();
         registerClickCallBack();
     }
 
@@ -172,34 +167,3 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-
-//    private void setupAddPotButton() {
-//
-//
-//        Button actBarAddPot= findViewById(R.id.actBarAddPot);
-//        actBarAddPot.setOnClickListener(new v);
-
-//        FOR BUTTON!!!
-//        // Wire up the button to do stuff
-//        //...get the button
-//        Button addPot = findViewById(R.id.btnAddPot);
-//        addPot.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i(TAG, "Clicked 'Add Pot'");
-//                Toast.makeText(MainActivity.this, "Clicked 'Add Pot'", Toast.LENGTH_SHORT)
-//                        .show();
-//
-//                //Launch Add Pot activity
-//                //Intent intent = new Intent(MainActivity.this, AddPotActivity.class); Alternative way
-//                Intent intent = AddPotActivity.makeIntent(MainActivity.this);
-//                //startActivity(intent); //Use that intent to start the activity
-//
-//                //Start activity with intention of getting result back
-//                startActivityForResult(intent, REQUEST_CODE_GETLIST); // to launch Add Pot Activity
-//
-//                //Kill the main activity
-//                //finish();
-//            }
-//        });
-//    }

@@ -9,8 +9,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +37,6 @@ public class CalculateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calculate);
 
         extractDataFromIntent();
-        //setupBackButton();
         setupCalculateValues();
 
         //EditTexts and TextViews
@@ -178,18 +175,3 @@ public class CalculateActivity extends AppCompatActivity {
 
 
 }
-
-//    private void setupBackButton() {
-//        //Wire up the button to do stuff
-//        Button btnBack = findViewById(R.id.btnBack);
-//        btnBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i(TAG, "Clicked 'BACK'");
-//                Toast.makeText(CalculateActivity.this, "Clicked 'BACK'", Toast.LENGTH_SHORT)
-//                        .show();
-//                finish(); //goes back to the Pot list Activity
-//
-//            }
-//        });
-//    }
