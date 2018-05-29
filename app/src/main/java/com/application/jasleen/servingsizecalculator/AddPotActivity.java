@@ -18,13 +18,23 @@ public class AddPotActivity extends AppCompatActivity {
     public static final String RESULT_KEY_POT_NAME = "com.application.jasleen.servingsizecalculator.AddPotActivity - Return Pot Name";
     public static final String RESULT_KEY_POT_WEIGHT = "com.application.jasleen.servingsizecalculator.AddPotActivity - Return Pot Weight";
     public static final int RESULT_CODE_DELETE_POT = 1054;
+    private static final String EXTRA_EDIT_POT_NAME = "com.application.jasleen.servingsizecalculator - edit Pot Name";
+    private static final String EXTRA_EDIT_POT_WEIGHT = "com.application.jasleen.servingsizecalculator - edit Pot Weight";
+
+    private EditText editPotName;
+    private EditText editPotWeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pot);
 
+        editPotName = findViewById(R.id.txtPotName);
+        editPotWeight = findViewById(R.id.txtPotWeight);
+
+        extractEditData();
         setupDeleteButton();
+
     }
 
     @Override
@@ -37,11 +47,9 @@ public class AddPotActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.actBarOk:
-                //Extract data from the UI:
-                EditText editPotName = findViewById(R.id.txtPotName);
-                String newPotName = editPotName.getText().toString();
 
-                EditText editPotWeight = findViewById(R.id.txtPotWeight);
+                //Extract data from the UI:
+                String newPotName = editPotName.getText().toString();
                 String valWeight = editPotWeight.getText().toString();
 
                 //Pass data back
@@ -73,7 +81,7 @@ public class AddPotActivity extends AppCompatActivity {
                         finish(); //always want to call finish to not keep adding on to stack
                     }
                 }
-            return true;
+                return true;
             case R.id.actBarCancel:
                 Log.i(TAG, "Clicked 'CANCEL'");
                 Toast.makeText(AddPotActivity.this, "Clicked 'CANCEL'", Toast.LENGTH_SHORT)
@@ -109,5 +117,21 @@ public class AddPotActivity extends AppCompatActivity {
         return new Pot(potName, potWeight) ;
     }
 
+    private void extractEditData(){
+        Intent receiveIntent = getIntent();
+        if(receiveIntent!=null && receiveIntent.getExtras()!=null){
+            String name = receiveIntent.getStringExtra(EXTRA_EDIT_POT_NAME);
+            editPotName.setText(name);
 
+            int weight = receiveIntent.getIntExtra(EXTRA_EDIT_POT_WEIGHT, 0);
+            editPotWeight.setText(String.valueOf(weight));
+        }
+    }
+
+    public static Intent makeEditIntent(Context context, Pot pot) {
+        Intent intent = new Intent(context, AddPotActivity.class);
+        intent.putExtra(EXTRA_EDIT_POT_NAME, pot.getName() );
+        intent.putExtra(EXTRA_EDIT_POT_WEIGHT, pot.getWeightInG());
+        return intent;
+    }
 }

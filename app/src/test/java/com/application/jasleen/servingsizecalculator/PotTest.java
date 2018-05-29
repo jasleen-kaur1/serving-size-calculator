@@ -9,7 +9,7 @@ public class PotTest {
     private Pot potOne;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
         potOne = new Pot("Cooker", 400);
     }
 

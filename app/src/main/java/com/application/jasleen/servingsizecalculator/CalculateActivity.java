@@ -63,6 +63,8 @@ public class CalculateActivity extends AppCompatActivity {
                         }else{
                             servingWeight = foodWeight / servingNumber;
                             calculateServingWeight.setText(String.valueOf(servingWeight));
+                        }if(calculateFoodWeight.getText()==""){
+                            calculateServingWeight.setText("");
                         }
                         Log.i(TAG, "Serving Number : " + servingNumber + "  Serving Weight: " + servingWeight);
 

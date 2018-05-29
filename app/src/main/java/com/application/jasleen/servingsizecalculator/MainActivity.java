@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //create a new object, instantiate
-        startPotCollection = new PotCollection();
+        startPotCollection = new PotCollection(); //create a new object, instantiate
         populateListView();
         registerClickCallBack();
     }
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 //Launch Calculate Activity
                 Intent newIntent = CalculateActivity.makeLaunchIntent(MainActivity.this, startPotCollection.getPot(position) );
 
-                //Start activity with the intention of getting result back
+                //Start activity
                 startActivity(newIntent); //Use that intent to start the activity
 
                 //To kill the main activity
@@ -113,11 +112,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG)
                         .show();
                 //Launch Add Pot Activity to edit
-                Intent editIntent = AddPotActivity.makeIntent(MainActivity.this);
+                Intent editIntent = AddPotActivity.makeEditIntent(MainActivity.this, startPotCollection.getPot(indexOfPot));
 
                 //Start activity with the intention of getting result back
                 startActivityForResult(editIntent, REQUEST_CODE_EDIT_POT); //Use that intent to start the activity
-
                 return true;
             }
         });
@@ -126,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_CODE_GETLIST:
                 if (resultCode == Activity.RESULT_OK) {
@@ -147,10 +144,12 @@ public class MainActivity extends AppCompatActivity {
                 //For Edit Pot (4.1)
             case REQUEST_CODE_EDIT_POT:
                 if (resultCode == Activity.RESULT_OK) {
-                    //Get the new Pot
+                    //Get the new edited Pot
                     Pot newPot = AddPotActivity.getPotFromIntent(data);
+
                     startPotCollection.changePot(newPot, indexOfPot);
                     populateListView();
+
                     Log.i(TAG, " Result edited Pot at position #: " + indexOfPot + " Now: " + newPot.getName() + " - " + newPot.getWeightInG() + "g");
                     break;
                     //For Deleting Pot (4.2)
