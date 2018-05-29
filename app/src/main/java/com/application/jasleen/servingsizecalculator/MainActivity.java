@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     //Array of options --> ArrayAdapter --> ListView (Array Adapter populates ListView)
     //List view: {views: potlist_items.xml}
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
